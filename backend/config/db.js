@@ -1,0 +1,21 @@
+//Connection file to mongo db
+import mongoose from "mongoose";
+import colors from "colors";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+const connectDB = async () => {
+  console.log(process.env.MONGO_URI);
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
+  } catch (error) {
+    console.error(`Error: ${error.message}`.red.bold);
+    process.exit();
+  }
+};
+
+export default connectDB;
